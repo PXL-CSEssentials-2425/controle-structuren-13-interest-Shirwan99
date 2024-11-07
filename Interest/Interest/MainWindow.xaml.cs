@@ -19,6 +19,11 @@ namespace Interest
         public MainWindow()
         {
             InitializeComponent();
+
+            beginkapitaalTextBox.KeyDown += new KeyEventHandler(TextBox_KeyDown);
+            eindkapitalTextBox.KeyDown += new KeyEventHandler(TextBox_KeyDown);
+            intrestTextBox.KeyDown += new KeyEventHandler(TextBox_KeyDown);
+            resultTextBox.KeyDown += new KeyEventHandler(TextBox_KeyDown);
         }
 
         private void colculateButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +55,7 @@ namespace Interest
             }
             while (capital < desiredCapital);
             resultTextBox.Text = sb.ToString();
-            
+
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
@@ -65,6 +70,23 @@ namespace Interest
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            char pressedKey;
+            bool isCharacter = char.TryParse(e.Key.ToString(), out pressedKey);
+
+            if (isCharacter)
+            {
+                bool isNumber = Char.IsDigit(pressedKey);
+            }
+            else if (e.Key == Key.Back)
+                e.Handled = true;
+
+            else if (textBox.Text == ",")
+                e.Handled = true;
         }
     }
 }
